@@ -1,6 +1,7 @@
 package web.UserDao;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import web.model.UserModel;
 
 import javax.persistence.EntityManager;
@@ -20,22 +21,25 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserModel showUserById(int id) {
+    public UserModel showUserById(Long id) {
         return entityManager.find(UserModel.class, id);
     }
 
+    @Transactional
     @Override
     public void add(UserModel userModel) {
         entityManager.persist(userModel);
     }
 
+    @Transactional
     @Override
     public void update(UserModel userModel) {
         entityManager.merge(userModel);
     }
 
+    @Transactional
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         entityManager.remove(showUserById(id));
 
     }

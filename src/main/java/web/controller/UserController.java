@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String showById(@PathVariable("id") int id, Model model) {
+    public String showById(@PathVariable("id") Long id, Model model) {
         model.addAttribute("person", userService.showUserById(id));
         return "showById";
     }
@@ -48,12 +48,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}/update")
-    public String ShowById(Model model, @PathVariable("id") int id) {
+    public String ShowById(Model model, @PathVariable("id") Long id) {
         model.addAttribute("person", userService.showUserById(id));
         return "Update";
     }
 
-    @PatchMapping("/{id}")
+    @PostMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid UserModel userModel, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
@@ -62,8 +62,8 @@ public class UserController {
         return "redirect:/people";
     }
 
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/people";
     }
