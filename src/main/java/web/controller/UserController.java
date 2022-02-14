@@ -53,16 +53,16 @@ public class UserController {
         return "Update";
     }
 
-    @PostMapping("/{id}")
+    @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid UserModel userModel, BindingResult bindingResult,
-                         @PathVariable("id") int id) {
+                         @PathVariable("id") long id) {
         if (bindingResult.hasErrors())
             return "Update";
         userService.update(userModel);
         return "redirect:/people";
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/people";
